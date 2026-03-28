@@ -5,6 +5,6 @@ const server = http.createServer((req, res) => {
   res.end();
 });
 
-server.listen(3000, () => {
-  console.log("Servidor rodando em http://localhost:3000");
+server.listen(3001, () => {
+  console.log("Servidor rodando em http://localhost:3001");
 });

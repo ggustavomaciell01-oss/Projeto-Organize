@@ -16,5 +16,11 @@
     "sobrenome": "Moreira",
     "email": "mateus@gmail.com",
     "senha": "1234"
+  },
+  {
+    "nome": "cleitIN",
+    "sobrenome": "ns",
+    "email": "teste@gmail.com",
+    "senha": "123456"
   }
 ]

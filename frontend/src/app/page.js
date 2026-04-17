@@ -6,7 +6,7 @@ export default function Home() {
 
       <section className="text-center max-w-3xl mb-16">
         <h1 className="text-5xl font-bold mb-6">
-          Organize sua vida em um só lugar
+          Organize sua vida em um só lugar teste
         </h1>
 
         <p className="text-gray-400 text-lg mb-8">

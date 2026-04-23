@@ -1,78 +1,13 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
+  output   = "../generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
-}
-
-model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  password  String
-  name      String?
-  createdAt DateTime @default(now())
-}
-
-model Task {
-  id          BigInt   @id @default(autoincrement())
-  title       String
-  description String?
-
-  dueDate     DateTime?   
-
-  status      String   @default("pending")
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  categories  TaskCategoryRelation[]
-
-  @@map("tasks")
-}
-
-model Finance {
-  id          BigInt   @id @default(autoincrement())
-  type        String
-  amount      Decimal  @db.Decimal(10, 2)
-  description String?
-
-  date        DateTime   
-
-  createdAt   DateTime @default(now())
-
-  @@map("finances")
-}
-
-model Appointment {
-  id          BigInt   @id @default(autoincrement())
-  title       String
-  description String?
-
-  startTime   DateTime
-  endTime     DateTime
-
-  createdAt   DateTime @default(now())
-
-  @@map("appointments")
-}
-
-model TaskCategory {
-  id     BigInt   @id @default(autoincrement())
-  name   String   @unique
-
-  tasks  TaskCategoryRelation[]
-
-  @@map("task_categories")
-}
-
-model TaskCategoryRelation {
-  task       Task         @relation(fields: [taskId], references: [id])
-  taskId     BigInt
-
-  category   TaskCategory @relation(fields: [categoryId], references: [id])
-  categoryId BigInt
-
-  @@id([taskId, categoryId])
-
-  @@map("task_category_relations")
 }

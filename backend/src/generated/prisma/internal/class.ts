@@ -17,8 +17,8 @@ import type * as Prisma from "./prismaNamespace.ts"
 
 const config: runtime.GetPrismaClientConfig = {
   "previewFeatures": [],
-  "clientVersion": "7.8.0",
-  "engineVersion": "3c6e192761c0362d496ed980de936e2f3cebcd3a",
+  "clientVersion": "7.7.0",
+  "engineVersion": "75cbdc1eb7150937890ad5465d861175c6624711",
   "activeProvider": "postgresql",
   "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel User {\n  id        String   @id @default(uuid())\n  email     String   @unique\n  password  String\n  name      String?\n  createdAt DateTime @default(now())\n}\n\nmodel Task {\n  id          BigInt  @id @default(autoincrement())\n  title       String\n  description String?\n\n  dueDate DateTime?\n\n  status    String   @default(\"pending\")\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  categories TaskCategoryRelation[]\n\n  @@map(\"tasks\")\n}\n\nmodel Finance {\n  id          BigInt  @id @default(autoincrement())\n  type        String\n  amount      Decimal @db.Decimal(10, 2)\n  description String?\n\n  date DateTime\n\n  createdAt DateTime @default(now())\n\n  @@map(\"finances\")\n}\n\nmodel Appointment {\n  id          BigInt  @id @default(autoincrement())\n  title       String\n  description String?\n\n  startTime DateTime\n  endTime   DateTime\n\n  createdAt DateTime @default(now())\n\n  @@map(\"appointments\")\n}\n\nmodel TaskCategory {\n  id   BigInt @id @default(autoincrement())\n  name String @unique\n\n  tasks TaskCategoryRelation[]\n\n  @@map(\"task_categories\")\n}\n\nmodel TaskCategoryRelation {\n  task   Task   @relation(fields: [taskId], references: [id])\n  taskId BigInt\n\n  category   TaskCategory @relation(fields: [categoryId], references: [id])\n  categoryId BigInt\n\n  @@id([taskId, categoryId])\n  @@map(\"task_category_relations\")\n}\n",
   "runtimeDataModel": {
@@ -180,7 +180,7 @@ export interface PrismaClient<
    * 
    * Read more in our [docs](https://www.prisma.io/docs/orm/prisma-client/queries/transactions).
    */
-  $transaction<P extends Prisma.PrismaPromise<any>[]>(arg: [...P], options?: { maxWait?: number, timeout?: number, isolationLevel?: Prisma.TransactionIsolationLevel }): runtime.Types.Utils.JsPromise<runtime.Types.Utils.UnwrapTuple<P>>
+  $transaction<P extends Prisma.PrismaPromise<any>[]>(arg: [...P], options?: { isolationLevel?: Prisma.TransactionIsolationLevel }): runtime.Types.Utils.JsPromise<runtime.Types.Utils.UnwrapTuple<P>>
 
   $transaction<R>(fn: (prisma: Omit<PrismaClient, runtime.ITXClientDenyList>) => runtime.Types.Utils.JsPromise<R>, options?: { maxWait?: number, timeout?: number, isolationLevel?: Prisma.TransactionIsolationLevel }): runtime.Types.Utils.JsPromise<R>
 

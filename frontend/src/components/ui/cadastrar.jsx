@@ -1,97 +1,130 @@
-import { Button } from "@/components/ui/button"
+"use client";
+
+import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
+import { Button } from "./button";
 import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+  Field,
+  FieldDescription,
+  FieldGroup,
+  FieldLabel,
+} from "./field";
+import { Input } from "./input";
 
-export default function Cadrastrar() {
+export default function RegisterForm() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setError("");
+
+    // Validação no cliente — antes de ir ao servidor
+    if (password.length < 8) {
+      setError("A senha deve ter pelo menos 8 caracteres.");
+      return;
+    }
+    if (password !== confirmPassword) {
+      setError("As senhas não coincidem.");
+      return;
+    }
+
+    setLoading(true);
+
+    const { data, error } = await authClient.signUp.email({
+      name,
+      email,
+      password,
+    });
+
+    setLoading(false);
+
+    if (error) {
+      setError("Erro ao criar conta. Verifique os dados e tente novamente.");
+      return;
+    }
+
+    router.push("/dashboard");
+  }
+
   return (
- <main className="min-h-screen flex items-center justify-center px-4">
-
-      <div className="flex flex-col md:flex-row items-center gap-10 w-full max-w-5xl">
-
-        <div className="text-white max-w-md text-center md:text-left">
-          <h1 className="text-4xl font-bold leading-tight">
-            Organize sua vida <br /> em um só lugar
-          </h1>
-
-          <p className="mt-4 text-sm opacity-90">
-            Agenda compromissos, gerencie tarefas, controle finanças e visualize estatísticas de forma simples e eficiente.
-          </p>
-        </div>
-
-        <Card className="w-full max-w-sm rounded-3xl bg-indigo-200 text-indigo-950 shadow-xl border-none">
-
-          <CardHeader>
-            <CardTitle className="text-2xl text-center">
-              Cadastre-se
-            </CardTitle>
-
-            <CardDescription className="text-center">
-              Digite seus dados abaixo
-            </CardDescription>
-          </CardHeader>
-
-          <CardContent>
-            <form>
-              <div className="flex flex-col gap-4">
-
-                <Input
-                  placeholder="Nome"
-                  className="rounded-full bg-white/80 border-none"
-                />
-
-                <Input
-                  placeholder="Sobrenome"
-                  className="rounded-full bg-white/80 border-none"
-                />
-
-                <Input
-                  type="email"
-                  placeholder="E-mail"
-                  className="rounded-full bg-white/80 border-none"
-                />
-
-                <Input
-                  type="password"
-                  placeholder="Senha"
-                  className="rounded-full bg-white/80 border-none"
-                />
-
-                <Input
-                  type="password"
-                  placeholder="Confirmar senha"
-                  className="rounded-full bg-white/80 border-none"
-                />
-
-              </div>
-            </form>
-          </CardContent>
-
-          <CardFooter className="flex flex-col gap-3">
-            
-            <Button className="w-full rounded-full bg-indigo-950 text-white hover:bg-indigo-900">
-              Criar conta
-            </Button>
-
-            <p className="text-sm text-center">
-              Já tem conta?{" "}
-              <Button variant="link" className="p-0 text-indigo-950">
-                Fazer login
-              </Button>
+    <div className="flex flex-col gap-6">
+      <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
+        <FieldGroup>
+          <div className="flex flex-col items-center gap-1 text-center mb-10">
+            <h1 className="text-2xl font-bold">Crie sua conta</h1>
+            <p className="text-sm text-balance text-muted-foreground">
+              Preencha o formulário abaixo para criar sua conta
             </p>
+          </div>
 
-          </CardFooter>
-        </Card>
+          {error && (
+            <p className="text-sm text-red-500 text-center mb-2">{error}</p>
+          )}
 
-      </div>
-    </main>
-  )
+          <Field>
+            <FieldLabel htmlFor="name">Nome Completo</FieldLabel>
+            <Input
+              id="name"
+              type="text"
+              placeholder="John Doe"
+              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </Field>
+          <Field>
+            <FieldLabel htmlFor="email">E-mail</FieldLabel>
+            <Input
+              id="email"
+              type="email"
+              placeholder="m@example.com"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </Field>
+          <Field>
+            <FieldLabel htmlFor="password">Senha</FieldLabel>
+            <Input
+              id="password"
+              type="password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <FieldDescription>Deve ter pelo menos 8 caracteres.</FieldDescription>
+          </Field>
+          <Field>
+            <FieldLabel htmlFor="confirm-password">Confirmar Senha</FieldLabel>
+            <Input
+              id="confirm-password"
+              type="password"
+              required
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+          </Field>
+          <Field className="mt-10">
+            <Button type="submit" disabled={loading}>
+              {loading ? "Criando conta..." : "Criar Conta"}
+            </Button>
+          </Field>
+          <Field>
+            <FieldDescription className="px-6 text-center">
+              Já tem uma conta? <Link href="/login">Login</Link>
+            </FieldDescription>
+          </Field>
+        </FieldGroup>
+      </form>
+    </div>
+  );
 }

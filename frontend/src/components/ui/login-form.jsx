@@ -1,87 +1,92 @@
-import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+"use client"; // ← torna o componente interativo no browser
 
-export default function LoginForms() {
+import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
+import { Button } from "./button";
+import { Field, FieldDescription, FieldGroup, FieldLabel } from "./field";
+import { Input } from "./input";
+
+export default function LoginForm() {
+  // Estado dos campos
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
+
+  async function handleSubmit(e) {
+    e.preventDefault(); // impede o comportamento padrão do form (reload da página)
+    setError("");
+    setLoading(true);
+
+    const { data, error } = await authClient.signIn.email({
+      email,
+      password,
+    });
+
+    setLoading(false);
+
+    if (error) {
+      setError("Email ou senha inválidos.");
+      return;
+    }
+
+    router.push("/dashboard"); // redireciona após login com sucesso
+  }
+
   return (
-    <main className="min-h-screen flex items-center justify-center px-4">
+    <div className="flex flex-col gap-6">
+      <form onSubmit={handleSubmit}>
+        <FieldGroup>
+          <div className="flex flex-col items-center gap-2 text-center mb-10">
+            <h1 className="text-xl font-bold">Bem-vindo ao minURL</h1>
+            <FieldDescription>
+              Não tem uma conta? <Link href="/register">Cadastre-se</Link>
+            </FieldDescription>
+          </div>
 
-      <div className="flex flex-col md:flex-row items-center gap-10 w-full max-w-5xl">
-        
-        <div className="text-white max-w-md text-center md:text-left">
-          <h1 className="text-4xl font-bold leading-tight">
-            Organize sua vida <br /> em um só lugar
-          </h1>
+          {/* Mensagem de erro */}
+          {error && (
+            <p className="text-sm text-red-500 text-center mb-2">{error}</p>
+          )}
 
-          <p className="mt-4 text-sm opacity-90">
-            Agende compromissos, gerencie tarefas, controle finanças e visualize estatísticas de forma simples e eficiente.
-          </p>
-        </div>
-
-
-        <Card className="w-full max-w-sm rounded-3xl bg-indigo-200 text-indigo-950 shadow-xl border-none">
-          <CardHeader>
-            <CardTitle className="text-2xl text-center">Entrar na sua conta</CardTitle>
-            <CardDescription className="text-center">
-              Digite seu e-mail abaixo para entrar na sua conta
-            </CardDescription>
-          </CardHeader>
-
-          <CardContent>
-            <form>
-              <div className="flex flex-col gap-4">
-                
-                <div className="grid gap-2">
-                  <Label htmlFor="email">Email:</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="m@example.com"
-                    required
-                    className="rounded-full bg-white/80 border-none"
-                  />
-                </div>
-
-                <div className="grid gap-2">
-                  <div className="flex items-center">
-                  </div>
-                  <Input id="password" placeholder="Senha" type="password" required className="rounded-full bg-white/80 border-none" />
-                  <a
-                      href="#"
-                      className="ml-auto text-sm hover:underline"
-                    >
-                      Esqueceu sua senha?
-                    </a>
-                </div>
-
-              </div>
-            </form>
-          </CardContent>
-
-          <CardFooter className="flex flex-col gap-3">
-           <Button className="w-full rounded-full bg-indigo-950 text-white hover:bg-indigo-900">
-             Entrar
-          </Button>
-
-            <p className="text-sm text-center">
-              Não tem conta?{" "}
-              <Button variant="link" className="p-0">
-                Cadastre-se
-              </Button>
-            </p>
-          </CardFooter>
-        </Card>
-
-      </div>
-    </main>
-  )
+          <Field>
+            <FieldLabel htmlFor="email">Email</FieldLabel>
+            <Input
+              id="email"
+              type="email"
+              placeholder="mary.doe@email.com"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </Field>
+          <Field className="mb-8">
+            <FieldLabel htmlFor="password">Senha</FieldLabel>
+            <Input
+              id="password"
+              type="password"
+              placeholder="Digite sua senha aqui"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </Field>
+          <Field>
+            <Button type="submit" disabled={loading}>
+              {loading ? "Entrando..." : "Login"}
+            </Button>
+          </Field>
+        </FieldGroup>
+      </form>
+      <FieldDescription className="px-6 text-center">
+        Ao clicar em continuar, você concorda com nossos{" "}
+        <a href="#">Termos de Serviços</a> e{" "}
+        <a href="#">Política de Privacidade</a>.
+      </FieldDescription>
+    </div>
+  );
 }

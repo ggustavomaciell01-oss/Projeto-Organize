@@ -56,7 +56,7 @@ export default function RegisterForm() {
   }
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6 text-black">
       <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
         <FieldGroup>
           <div className="flex flex-col items-center gap-1 text-center mb-10">

@@ -44,7 +44,7 @@ export default function LoginForm() {
           <div className="flex flex-col items-center gap-2 text-center mb-10">
             <h1 className="text-xl font-bold">Bem-vindo ao minURL</h1>
             <FieldDescription>
-              Não tem uma conta? <Link href="/register">Cadastre-se</Link>
+              Não tem uma conta? <Link href="/cadastro">Cadastre-se</Link>
             </FieldDescription>
           </div>
 

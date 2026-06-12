@@ -13,7 +13,7 @@ import {
 } from "./field";
 import { Input } from "./input";
 
-export default function RegisterForm() {
+export default function Cadastro() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

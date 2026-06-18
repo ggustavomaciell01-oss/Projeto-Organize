@@ -5,6 +5,7 @@ import cors from "cors";
 import { auth } from "./lib/auth.js";
 import { toNodeHandler } from "better-auth/node";
 import { requireAuth } from "../src/middleware/auth.js";
+import planRoutes from "./routes/plan.routes.js"; // importação
 
 
 // Configuração inicial
@@ -49,6 +50,8 @@ app.get("/api/me", requireAuth, (req, res) => {
     user: req.user, // Dados vindos do middleware
   });
 });
+
+app.use("/api/plans", planRoutes); // registro no prefixo /api/plans
 
 // Iniciar servidor
 app.listen(PORT, () => {

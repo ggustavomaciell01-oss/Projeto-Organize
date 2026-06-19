@@ -1,6 +1,6 @@
 "use client";
 
-import { ChartBar, LayoutDashboard, calendarDays } from "lucide-react";
+import { ChartBar, LayoutDashboard, Link} from "lucide-react";
 
 import {
   Sidebar,

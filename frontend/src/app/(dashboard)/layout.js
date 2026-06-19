@@ -70,11 +70,11 @@ export default function RootLayout({ children }) {
                       <Breadcrumb>
                         <BreadcrumbList>
                           <BreadcrumbItem className="hidden md:block">
-                            <BreadcrumbLink href="#">Dashboard</BreadcrumbLink>
+                            <BreadcrumbLink href="#">Painel Principal</BreadcrumbLink>
                           </BreadcrumbItem>
                           <BreadcrumbSeparator className="hidden md:block" />
                           <BreadcrumbItem>
-                            <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+                            <BreadcrumbPage>Compromissos</BreadcrumbPage>
                           </BreadcrumbItem>
                         </BreadcrumbList>
                       </Breadcrumb>

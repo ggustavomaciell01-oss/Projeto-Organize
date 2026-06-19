@@ -22,16 +22,9 @@ export function NavMain({ items }) {
               className="min-w-8 bg-primary text-primary-foreground duration-200 ease-linear hover:bg-primary/90 hover:text-primary-foreground active:bg-primary/90 active:text-primary-foreground"
             >
               <CirclePlus />
-              <span>Quick Create</span>
+              <span>Criar Tarefa</span>
             </SidebarMenuButton>
-            <Button
-              size="icon"
-              className="size-8 group-data-[collapsible=icon]:opacity-0"
-              variant="outline"
-            >
-              <Mail />
-              <span className="sr-only">Inbox</span>
-            </Button>
+ 
           </SidebarMenuItem>
         </SidebarMenu>
         <SidebarMenu>

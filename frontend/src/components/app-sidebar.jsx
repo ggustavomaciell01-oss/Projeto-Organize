@@ -1,6 +1,6 @@
 "use client";
 
-import { ChartBar, LayoutDashboard, Link} from "lucide-react";
+import { ChartBar, LayoutDashboard, Link, CalendarDays, ClipboardList} from "lucide-react";
 
 import {
   Sidebar,
@@ -22,20 +22,20 @@ const data = {
       url: "/dashboard",
       icon: LayoutDashboard,
     },
+//   {
+//      title: "Agenda",
+//      url: "/agenda",
+//      icon: CalendarDays,
+//    },
+//    {
+//      title: "Estatísticas",
+//      url: "/estatisticas",
+//      icon: ChartBar,
+//    },
     {
-      title: "Agenda",
-      url: "/agenda",
-      icon: calendarDays,
-    },
-    {
-      title: "Analytics",
-      url: "/estatisticas",
-      icon: ChartBar,
-    },
-    {
-      title: "Analytics",
-      url: "/estatisticas",
-      icon: ChartBar,
+      title: "Tarefas",
+      url: "/tarefas",
+      icon: ClipboardList,
     }
   ],
 };
@@ -60,7 +60,7 @@ export function AppSidebar({ ...props }) {
               asChild
               className="data-[slot=sidebar-menu-button]:p-1.5!"
             >
-              <a href="#">
+              <a href="/dashboard" className="flex items-center gap-2">
                 <Link className="size-5!" />
                 <span className="text-base font-semibold">Organize</span>
               </a>

@@ -13,16 +13,18 @@ export default function TasksAdmin() {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [sheetOpen, setSheetOpen] = useState(false);
-  const [editing, setEditing] = useState(null); // null = criar, objeto = editar
+  const [editing, setEditing] = useState(null);
+
   const [form, setForm] = useState({
-    name: "",
-    price: "",
-    maxLinks: "",
-    maxClicks: "",
+    title: "",
+    description: "",
+    dueDate: "",
+    status: "pending",
   });
+
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
-  const [confirmDelete, setConfirmDelete] = useState(null); // id da tarefa a deletar
+  const [confirmDelete, setConfirmDelete] = useState(null);
 
   useEffect(() => {
     fetchTasks();
@@ -38,7 +40,12 @@ export default function TasksAdmin() {
 
   function openCreate() {
     setEditing(null);
-    setForm({ name: "", price: "", maxLinks: "", maxClicks: "" });
+    setForm({
+      title: "",
+      description: "",
+      dueDate: "",
+      status: "pending",
+    });
     setError("");
     setSheetOpen(true);
   }
@@ -46,10 +53,10 @@ export default function TasksAdmin() {
   function openEdit(task) {
     setEditing(task);
     setForm({
-      name: task.name,
-      price: String(task.price),
-      maxLinks: String(task.maxLinks),
-      maxClicks: String(task.maxClicks),
+      title: task.title,
+      description: task.description ?? "",
+      dueDate: task.dueDate ? task.dueDate.slice(0, 10) : "",
+      status: task.status ?? "pending",
     });
     setError("");
     setSheetOpen(true);
@@ -61,10 +68,10 @@ export default function TasksAdmin() {
     setError("");
 
     const body = {
-      name: form.name,
-      price: Number(form.price),
-      maxLinks: Number(form.maxLinks),
-      maxClicks: Number(form.maxClicks),
+      title: form.title,
+      description: form.description || null,
+      dueDate: form.dueDate ? new Date(form.dueDate) : null,
+      status: form.status,
     };
 
     const res = await fetch(editing ? `${API}/${editing.id}` : API, {
@@ -87,7 +94,11 @@ export default function TasksAdmin() {
   }
 
   async function handleDelete(id) {
-    await fetch(`${API}/${id}`, { method: "DELETE", credentials: "include" });
+    await fetch(`${API}/${id}`, {
+      method: "DELETE",
+      credentials: "include",
+    });
+
     setConfirmDelete(null);
     fetchTasks();
   }
@@ -96,6 +107,7 @@ export default function TasksAdmin() {
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">Tarefas</h1>
+
         <Button onClick={openCreate}>
           <Plus className="size-4 mr-2" />
           Nova Tarefa
@@ -116,7 +128,7 @@ export default function TasksAdmin() {
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {tasks.map((task) => (
             <CardTaskAdmin
-              key={task.id}
+              key={String(task.id)}
               task={task}
               confirmDelete={confirmDelete}
               onEdit={openEdit}

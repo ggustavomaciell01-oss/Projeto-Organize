@@ -21,7 +21,7 @@ export function NavMain({ items }) {
           <SidebarMenuItem>
             <SidebarMenuButton asChild tooltip="Criar Tarefa">
               <Link
-                href="/tarefas"
+                href="/task-admin"
                 className="flex items-center gap-2 min-w-8 bg-primary text-primary-foreground duration-200 ease-linear hover:bg-primary/90"
               >
                 <CirclePlus className="size-4" />

@@ -34,7 +34,7 @@ const data = {
 //    },
     {
       title: "Tarefas",
-      url: "/tarefas",
+      url: "/task-admin",
       icon: ClipboardList,
     }
   ],

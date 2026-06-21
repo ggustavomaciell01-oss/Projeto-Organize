@@ -20,23 +20,34 @@ export default function CardTaskAdmin({
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{task.name}</CardTitle>
+        <CardTitle>{task.title}</CardTitle>
+
         <CardDescription>
-          {Number(task.price) === 0
-            ? "Grátis"
-            : `R$ ${Number(task.price).toFixed(2)}/mês`}
+          {task.status === "pending" && " Pendente"}
+          {task.status === "done" && " Concluída"}
+          {task.status === "in_progress" && " Em andamento"}
         </CardDescription>
       </CardHeader>
+
       <CardContent className="text-sm text-muted-foreground flex flex-col gap-1">
-        <span>🔗 Até {task.maxLinks} links</span>
-        <span>📊 Até {task.maxClicks.toLocaleString("pt-BR")} cliques/mês</span>
+        {task.description && (
+          <span> {task.description}</span>
+        )}
+
+        {task.dueDate && (
+          <span>
+             {new Date(task.dueDate).toLocaleDateString("pt-BR")}
+          </span>
+        )}
       </CardContent>
+
       <CardFooter className="flex gap-2">
         {confirmDelete === task.id ? (
           <>
             <span className="text-sm text-destructive flex-1">
               Confirmar exclusão?
             </span>
+
             <Button
               size="sm"
               variant="destructive"
@@ -44,6 +55,7 @@ export default function CardTaskAdmin({
             >
               Sim
             </Button>
+
             <Button size="sm" variant="outline" onClick={onCancelDelete}>
               Não
             </Button>
@@ -51,14 +63,17 @@ export default function CardTaskAdmin({
         ) : (
           <>
             <Button size="sm" variant="outline" onClick={() => onEdit(task)}>
-              <Pencil className="size-3.5 mr-1" /> Editar
+              <Pencil className="size-3.5 mr-1" />
+              Editar
             </Button>
+
             <Button
               size="sm"
               variant="destructive"
               onClick={() => onRequestDelete(task.id)}
             >
-              <Trash2 className="size-3.5 mr-1" /> Excluir
+              <Trash2 className="size-3.5 mr-1" />
+              Excluir
             </Button>
           </>
         )}

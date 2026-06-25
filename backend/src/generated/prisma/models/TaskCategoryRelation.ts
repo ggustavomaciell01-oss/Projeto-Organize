@@ -27,22 +27,20 @@ export type AggregateTaskCategoryRelation = {
 }
 
 export type TaskCategoryRelationAvgAggregateOutputType = {
-  taskId: number | null
   categoryId: number | null
 }
 
 export type TaskCategoryRelationSumAggregateOutputType = {
-  taskId: bigint | null
   categoryId: bigint | null
 }
 
 export type TaskCategoryRelationMinAggregateOutputType = {
-  taskId: bigint | null
+  taskId: string | null
   categoryId: bigint | null
 }
 
 export type TaskCategoryRelationMaxAggregateOutputType = {
-  taskId: bigint | null
+  taskId: string | null
   categoryId: bigint | null
 }
 
@@ -54,12 +52,10 @@ export type TaskCategoryRelationCountAggregateOutputType = {
 
 
 export type TaskCategoryRelationAvgAggregateInputType = {
-  taskId?: true
   categoryId?: true
 }
 
 export type TaskCategoryRelationSumAggregateInputType = {
-  taskId?: true
   categoryId?: true
 }
 
@@ -166,7 +162,7 @@ export type TaskCategoryRelationGroupByArgs<ExtArgs extends runtime.Types.Extens
 }
 
 export type TaskCategoryRelationGroupByOutputType = {
-  taskId: bigint
+  taskId: string
   categoryId: bigint
   _count: TaskCategoryRelationCountAggregateOutputType | null
   _avg: TaskCategoryRelationAvgAggregateOutputType | null
@@ -194,7 +190,7 @@ export type TaskCategoryRelationWhereInput = {
   AND?: Prisma.TaskCategoryRelationWhereInput | Prisma.TaskCategoryRelationWhereInput[]
   OR?: Prisma.TaskCategoryRelationWhereInput[]
   NOT?: Prisma.TaskCategoryRelationWhereInput | Prisma.TaskCategoryRelationWhereInput[]
-  taskId?: Prisma.BigIntFilter<"TaskCategoryRelation"> | bigint | number
+  taskId?: Prisma.StringFilter<"TaskCategoryRelation"> | string
   categoryId?: Prisma.BigIntFilter<"TaskCategoryRelation"> | bigint | number
   task?: Prisma.XOR<Prisma.TaskScalarRelationFilter, Prisma.TaskWhereInput>
   category?: Prisma.XOR<Prisma.TaskCategoryScalarRelationFilter, Prisma.TaskCategoryWhereInput>
@@ -212,7 +208,7 @@ export type TaskCategoryRelationWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.TaskCategoryRelationWhereInput | Prisma.TaskCategoryRelationWhereInput[]
   OR?: Prisma.TaskCategoryRelationWhereInput[]
   NOT?: Prisma.TaskCategoryRelationWhereInput | Prisma.TaskCategoryRelationWhereInput[]
-  taskId?: Prisma.BigIntFilter<"TaskCategoryRelation"> | bigint | number
+  taskId?: Prisma.StringFilter<"TaskCategoryRelation"> | string
   categoryId?: Prisma.BigIntFilter<"TaskCategoryRelation"> | bigint | number
   task?: Prisma.XOR<Prisma.TaskScalarRelationFilter, Prisma.TaskWhereInput>
   category?: Prisma.XOR<Prisma.TaskCategoryScalarRelationFilter, Prisma.TaskCategoryWhereInput>
@@ -232,7 +228,7 @@ export type TaskCategoryRelationScalarWhereWithAggregatesInput = {
   AND?: Prisma.TaskCategoryRelationScalarWhereWithAggregatesInput | Prisma.TaskCategoryRelationScalarWhereWithAggregatesInput[]
   OR?: Prisma.TaskCategoryRelationScalarWhereWithAggregatesInput[]
   NOT?: Prisma.TaskCategoryRelationScalarWhereWithAggregatesInput | Prisma.TaskCategoryRelationScalarWhereWithAggregatesInput[]
-  taskId?: Prisma.BigIntWithAggregatesFilter<"TaskCategoryRelation"> | bigint | number
+  taskId?: Prisma.StringWithAggregatesFilter<"TaskCategoryRelation"> | string
   categoryId?: Prisma.BigIntWithAggregatesFilter<"TaskCategoryRelation"> | bigint | number
 }
 
@@ -242,7 +238,7 @@ export type TaskCategoryRelationCreateInput = {
 }
 
 export type TaskCategoryRelationUncheckedCreateInput = {
-  taskId: bigint | number
+  taskId: string
   categoryId: bigint | number
 }
 
@@ -252,12 +248,12 @@ export type TaskCategoryRelationUpdateInput = {
 }
 
 export type TaskCategoryRelationUncheckedUpdateInput = {
-  taskId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  taskId?: Prisma.StringFieldUpdateOperationsInput | string
   categoryId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
 }
 
 export type TaskCategoryRelationCreateManyInput = {
-  taskId: bigint | number
+  taskId: string
   categoryId: bigint | number
 }
 
@@ -266,7 +262,7 @@ export type TaskCategoryRelationUpdateManyMutationInput = {
 }
 
 export type TaskCategoryRelationUncheckedUpdateManyInput = {
-  taskId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  taskId?: Prisma.StringFieldUpdateOperationsInput | string
   categoryId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
 }
 
@@ -281,7 +277,7 @@ export type TaskCategoryRelationOrderByRelationAggregateInput = {
 }
 
 export type TaskCategoryRelationTaskIdCategoryIdCompoundUniqueInput = {
-  taskId: bigint | number
+  taskId: string
   categoryId: bigint | number
 }
 
@@ -291,7 +287,6 @@ export type TaskCategoryRelationCountOrderByAggregateInput = {
 }
 
 export type TaskCategoryRelationAvgOrderByAggregateInput = {
-  taskId?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
 }
 
@@ -306,7 +301,6 @@ export type TaskCategoryRelationMinOrderByAggregateInput = {
 }
 
 export type TaskCategoryRelationSumOrderByAggregateInput = {
-  taskId?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
 }
 
@@ -432,7 +426,7 @@ export type TaskCategoryRelationScalarWhereInput = {
   AND?: Prisma.TaskCategoryRelationScalarWhereInput | Prisma.TaskCategoryRelationScalarWhereInput[]
   OR?: Prisma.TaskCategoryRelationScalarWhereInput[]
   NOT?: Prisma.TaskCategoryRelationScalarWhereInput | Prisma.TaskCategoryRelationScalarWhereInput[]
-  taskId?: Prisma.BigIntFilter<"TaskCategoryRelation"> | bigint | number
+  taskId?: Prisma.StringFilter<"TaskCategoryRelation"> | string
   categoryId?: Prisma.BigIntFilter<"TaskCategoryRelation"> | bigint | number
 }
 
@@ -441,7 +435,7 @@ export type TaskCategoryRelationCreateWithoutCategoryInput = {
 }
 
 export type TaskCategoryRelationUncheckedCreateWithoutCategoryInput = {
-  taskId: bigint | number
+  taskId: string
 }
 
 export type TaskCategoryRelationCreateOrConnectWithoutCategoryInput = {
@@ -487,7 +481,7 @@ export type TaskCategoryRelationUncheckedUpdateManyWithoutTaskInput = {
 }
 
 export type TaskCategoryRelationCreateManyCategoryInput = {
-  taskId: bigint | number
+  taskId: string
 }
 
 export type TaskCategoryRelationUpdateWithoutCategoryInput = {
@@ -495,11 +489,11 @@ export type TaskCategoryRelationUpdateWithoutCategoryInput = {
 }
 
 export type TaskCategoryRelationUncheckedUpdateWithoutCategoryInput = {
-  taskId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  taskId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type TaskCategoryRelationUncheckedUpdateManyWithoutCategoryInput = {
-  taskId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  taskId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 
@@ -551,7 +545,7 @@ export type $TaskCategoryRelationPayload<ExtArgs extends runtime.Types.Extension
     category: Prisma.$TaskCategoryPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    taskId: bigint
+    taskId: string
     categoryId: bigint
   }, ExtArgs["result"]["taskCategoryRelation"]>
   composites: {}
@@ -978,7 +972,7 @@ export interface Prisma__TaskCategoryRelationClient<T, Null = never, ExtArgs ext
  * Fields of the TaskCategoryRelation model
  */
 export interface TaskCategoryRelationFieldRefs {
-  readonly taskId: Prisma.FieldRef<"TaskCategoryRelation", 'BigInt'>
+  readonly taskId: Prisma.FieldRef<"TaskCategoryRelation", 'String'>
   readonly categoryId: Prisma.FieldRef<"TaskCategoryRelation", 'BigInt'>
 }
     

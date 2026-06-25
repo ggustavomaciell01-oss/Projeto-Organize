@@ -35,6 +35,7 @@ export default function TasksAdmin() {
     const res = await fetch(API);
     const data = await res.json();
     setTasks(data);
+    console.log(data)
     setLoading(false);
   }
 

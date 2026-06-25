@@ -65,7 +65,7 @@ model Verification {
 }
 
 model Task {
-  id          BigInt  @id @default(autoincrement())
+  id          String    @id @default(uuid())
   title       String
   description String?
 
@@ -117,7 +117,7 @@ model TaskCategory {
 
 model TaskCategoryRelation {
   task   Task   @relation(fields: [taskId], references: [id])
-  taskId BigInt
+  taskId String
 
   category   TaskCategory @relation(fields: [categoryId], references: [id])
   categoryId BigInt

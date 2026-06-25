@@ -2,7 +2,7 @@
 import { prisma } from "../lib/prisma.js";
 
 export async function listarTarefas() {
-  return prisma.task.findMany({ orderBy: { price: "asc" } });
+  return prisma.task.findMany({ orderBy: { dueDate: "asc" } });
 }
 
 export async function buscarTarefaPorId(id) {

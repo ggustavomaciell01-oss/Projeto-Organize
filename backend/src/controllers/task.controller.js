@@ -9,7 +9,7 @@ export async function listar(req, res) {
 
 // GET /api/tasks/:id
 export async function buscar(req, res) {
-  const id = Number(req.params.id);
+  const id = req.params.id;
   const tarefa = await TaskModel.buscarTarefaPorId(id);
   if (!tarefa) {
     return res.status(404).json({ error: "Tarefa não encontrada." });
@@ -19,25 +19,25 @@ export async function buscar(req, res) {
 
 // POST /api/tasks
 export async function criar(req, res) {
-  const { name, price, maxLinks, maxClicks } = req.body;
+  const { title, description, dueDate, status } = req.body;
 
-  if (!name || price == null || maxLinks == null || maxClicks == null) {
+  if (!title || description == null || dueDate == null || status == null) {
     return res.status(400).json({ error: "Todos os campos são obrigatórios." });
   }
 
   const tarefa = await TaskModel.criarTarefa({
-    name,
-    price,
-    maxLinks,
-    maxClicks,
+    title,
+    description,
+    dueDate,
+    status,
   });
   return res.status(201).json(tarefa);
 }
 
 // PUT /api/tasks/:id
 export async function atualizar(req, res) {
-  const id = Number(req.params.id);
-  const { name, price, maxLinks, maxClicks } = req.body;
+  const id = req.params.id;
+  const {  title, description, dueDate, status } = req.body;
 
   const tarefa = await TaskModel.buscarTarefaPorId(id);
   if (!tarefa) {
@@ -45,10 +45,10 @@ export async function atualizar(req, res) {
   }
 
   const atualizado = await TaskModel.atualizarTarefa(id, {
-    name,
-    price,
-    maxLinks,
-    maxClicks,
+    title,
+    description,
+    dueDate,
+    status,
   });
   return res.json(atualizado);
 }
